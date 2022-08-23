@@ -20,7 +20,10 @@ export default {
             if (this.newTodoItem !== "") {
                 let value = this.newTodoItem && this.newTodoItem.trim();
                 // Local storage에 저장하기
-                localStorage.setItem("TODO"+value, value);
+                // localStorage.setItem("TODO"+value, value);
+                // this.clearInput();
+
+                this.$emit('addTodo', value);
                 this.clearInput();
             }
         },

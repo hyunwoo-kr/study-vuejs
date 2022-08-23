@@ -1,6 +1,6 @@
 <template>
-<div class="clarAllContainer">
-    <span class="clearAllBtn" v-on:click="clearTodo">Clear All</span>
+<div class="clarAllContainer"  v-on:click="removeAll">
+    <span class="clearAllBtn">Clear All</span>
 </div>
 </template>
 
@@ -14,8 +14,11 @@ export default {
     props: {},
     methods: {
         clearTodo() {
-            // TodoList.vue에 이벤트 전파 필요.
             localStorage.clear();
+        },
+        removeAll() {
+            // TodoList.vue에 이벤트 전파
+            this.$emit('removeAll');
         }
     },
 };
