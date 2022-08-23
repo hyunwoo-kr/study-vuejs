@@ -1,5 +1,10 @@
 <template>
-<div>input</div>
+<div class="inputBox shadow">
+    <input type="text" v-model="newTodoItem" placeholder="할일 적기 <업무명>-<할일>" v-on:keyup.enter="addTodo">
+    <span class="addContainer" v-on:click="addTodo">
+         <i class="addBtn fas fa-plus" aria-hidden="true"></i>
+    </span>
+</div>
 </template>
 
 <script>
@@ -7,11 +12,52 @@ export default {
     name: "Test",
     created() {},
     data() {
-        return {};
+        return { newTodoItem: ''};
     },
     props: {},
-    methods: {},
+    methods: {
+        addTodo () {
+            if (this.newTodoItem !== "") {
+                let value = this.newTodoItem && this.newTodoItem.trim();
+                // Local storage에 저장하기
+                localStorage.setItem("TODO"+value, value);
+                this.clearInput();
+            }
+        },
+        clearInput() {
+            this.newTodoItem = '';
+        }
+    },
 };
 </script>
 
-<style></style>
+<style scoped>
+input:focus {
+    outline: none;
+}
+
+.inputBox {
+    background: white;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 5px;
+}
+
+.inputBox input {
+    border-style: none;
+    font-size: 0.9rem;
+}
+
+.addContainer {
+    float: right;
+    background: linear-gradient(to right, #6478FB, #8763FB);
+    display: block;
+    width: 3rem;
+    border-radius: 0 5px 5px 0;
+}
+
+.addBtn {
+    color: white;
+    vertical-align: middle;
+}
+</style>
