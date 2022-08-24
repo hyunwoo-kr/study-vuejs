@@ -2,7 +2,7 @@
 <div id="app">
     <TodoHeader></TodoHeader>
     <TodoInput v-on:addTodo="addTodo"></TodoInput>
-    <TodoList v-bind:propsdata="todoItemList" v-on:removeTodo="removeTodo"></TodoList>
+    <TodoList v-bind:propsTodoItemList="todoItemList" v-on:removeTodo="removeTodo"></TodoList>
     <TodoFooter v-on:removeAll="removeAll"></TodoFooter>
 </div>
 </template>

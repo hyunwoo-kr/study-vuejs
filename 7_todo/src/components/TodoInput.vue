@@ -4,15 +4,22 @@
     <span class="addContainer" v-on:click="addTodo">
          <i class="addBtn fas fa-plus" aria-hidden="true"></i>
     </span>
+
+    <Teleport to="body">
+        <modal v-bind:show="showModal" v-on:close="close">
+        </modal>
+    </Teleport>
 </div>
 </template>
 
 <script>
+import Modal from './common/Modal.vue'
+
 export default {
     name: "Test",
     created() {},
     data() {
-        return { newTodoItem: ''};
+        return { newTodoItem: '', showModal: false};
     },
     props: {},
     methods: {
@@ -25,12 +32,20 @@ export default {
 
                 this.$emit('addTodo', value);
                 this.clearInput();
+            } else {
+                this.showModal = !this.showModal;
             }
         },
         clearInput() {
             this.newTodoItem = '';
+        },
+        close() {
+            this.showModal = false;
         }
     },
+    components: {
+        Modal: Modal
+    }
 };
 </script>
 
