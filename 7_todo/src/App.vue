@@ -43,7 +43,6 @@ export default {
         }
     },
     created() {
-        // 새롭게 추가 되는건 갱신이 안 되네.... 어디다가 둬야 하나?
         // TODO: event bus를 써서 변경 이벤트를 감지 해야 할 듯.
         if (localStorage.length > 0) {
             for (let i = 0; i < localStorage.length; i++) {
