@@ -1,11 +1,19 @@
-# 6_simple
+# 8_todo_vuex
 
-> atest
+> todo project + vuex
+
+## 설명
+Todo 프로젝트를 개선하여, vuex를 사용하여 todo를 관리 해 보기
 
 ## simple vue 프로젝트 만들기
 
+    vue init webpack-simple
+
+## vuex 설치 하기
+
 ```
-vue init webpack-simple
+# vue 2.x용 vuex 설치 하기
+vue install vuex@3
 ```
 
 ## Build Setup

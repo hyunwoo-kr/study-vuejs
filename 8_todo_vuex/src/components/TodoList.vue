@@ -1,7 +1,7 @@
 <template>
 <section>
     <transition-group name="list" tag="ul">
-        <li v-for="(todoItem, index) in propsTodoItemList" v-bind:key="todoItem" class="shadow">
+        <li v-for="(todoItem, index) in todoItemList" v-bind:key="todoItem" class="shadow">
             <i class="checkBtn fas fa-check" aria-hidden="true"></i>
             {{ todoItem }}
             <span class="removeBtn" type="button" v-on:click="removeTodo(todoItem, index)">
@@ -13,15 +13,18 @@
 </template>
 
 <script>
-const PREFIX_KEY = 'TODO';
-export default {re
+export default {
     name: "Test",
-    props: ['propsTodoItemList'],
     methods: {
         removeTodo (todoItem, index=0) {
-            // localStorage.removeItem(PREFIX_KEY+todoItem);
-            // this.todoItemList.splice(index, 1);
-            this.$emit('removeTodo', todoItem, index);
+            // this.$store.mutations.removeTodo(todoItem, index);
+            this.$store.commit('removeTodo', {todoItem, index});
+        }
+    },
+    computed: {
+        todoItemList: function() {
+            return this.$store.state.todoItemList;
+            // return [];
         }
     },
 };
