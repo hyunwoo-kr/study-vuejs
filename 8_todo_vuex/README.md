@@ -16,6 +16,14 @@ Todo 프로젝트를 개선하여, vuex를 사용하여 todo를 관리 해 보�
 vue install vuex@3
 ```
 
+## JSON.stringify
+
+JSON 객체를 문자열로 변환한다
+
+## JSON.parse
+
+문자열을 JSON 객체로 변환한다
+
 ## Build Setup
 
 ``` bash

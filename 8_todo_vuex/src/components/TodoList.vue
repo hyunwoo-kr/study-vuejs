@@ -1,10 +1,10 @@
 <template>
 <section>
     <transition-group name="list" tag="ul">
-        <li v-for="(todoItem, index) in todoItemList" v-bind:key="todoItem" class="shadow">
+        <li v-for="(todoItem, index) in todoItemList" v-bind:key="todoItem.id" class="shadow">
             <i class="checkBtn fas fa-check" aria-hidden="true"></i>
-            {{ todoItem }}
-            <span class="removeBtn" type="button" v-on:click="removeTodo(todoItem, index)">
+            {{ todoItem.todo }}
+            <span class="removeBtn" type="button" v-on:click="removeTodo(todoItem.id, index)">
                 <i class="far fa-trash-alt" aria-hidden="true"></i>
             </span>
         </li>
@@ -16,9 +16,9 @@
 export default {
     name: "Test",
     methods: {
-        removeTodo (todoItem, index=0) {
+        removeTodo (todoId, index=0) {
             // this.$store.mutations.removeTodo(todoItem, index);
-            this.$store.commit('removeTodo', {todoItem, index});
+            this.$store.commit('removeTodo', {todoId, index});
         }
     },
     computed: {

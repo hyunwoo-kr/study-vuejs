@@ -25,10 +25,7 @@ export default {
         addTodo () {
             if (this.newTodoItem !== "") {
                 let value = this.newTodoItem && this.newTodoItem.trim();
-
-                // this.$store.mutations.addTodo(value);
                 this.$store.commit('addTodo', value);
-
                 this.clearInput();
             } else {
                 this.showModal = !this.showModal;
