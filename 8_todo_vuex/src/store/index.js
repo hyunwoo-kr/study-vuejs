@@ -62,6 +62,16 @@ export default new Vuex.Store({
 	},
 	actions: {
 		// 외부 통신 수행 등
+		getNames() {
+			const url = 'http:/asdf/asdf';
+			axios.get(url).then(response => {
+				console.log('url:' + url);
+			}).catch(error => {
+				console.log(error);
+			});
+		}
+
+
 	},
 	getters: {
 		// components 의 computed 라고 생각 하면 됨.

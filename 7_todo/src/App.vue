@@ -46,7 +46,6 @@ export default {
     },
   },
   created() {
-    // TODO: event bus를 써서 변경 이벤트를 감지 해야 할 듯.
     if (localStorage.length > 0) {
       for (let i = 0; i < localStorage.length; i++) {
         if (localStorage.key(i).indexOf(PREFIX_KEY) !== -1) {
