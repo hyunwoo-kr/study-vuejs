@@ -1,6 +1,7 @@
 <template>
 	<div id="app">
 		<TodoHeader></TodoHeader>
+		<UserList></UserList>
 		<TodoInput></TodoInput>
 		<TodoList></TodoList>
 		<TodoFooter></TodoFooter>
@@ -12,6 +13,7 @@ import TodoHeader from "./components/TodoHeader";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import TodoFooter from "./components/TodoFooter";
+import UserList from "./components/UserList";
 import store from "./store";
 
 const PREFIX_KEY = "TODO";
@@ -26,7 +28,8 @@ export default {
 		TodoHeader: TodoHeader,
 		TodoInput: TodoInput,
 		TodoList: TodoList,
-		TodoFooter: TodoFooter
+		TodoFooter: TodoFooter,
+		UserList: UserList
 	},
 	methods: {},
 	created() {

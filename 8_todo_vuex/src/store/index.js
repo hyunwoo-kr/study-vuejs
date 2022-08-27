@@ -7,7 +7,8 @@ export default new Vuex.Store({
 	state: {
 		itemCnt: 1,
 		// 데이터 위치
-		todoItemList: []
+		todoItemList: [],
+		users: []
 	},
 	mutations: {
 		// // 데이터를 실제로 바꾸는 곳.
@@ -37,6 +38,9 @@ export default new Vuex.Store({
 			state.todoItemList = [];
 			localStorage.setItem('TODO-ITEM-CNT', 1);
 		},
+		setUserList(state, value) {
+			state.users = value;
+		},
 		init(state) {
 			if (localStorage.getItem('TODO-ITEM-CNT')) {
 				state.itemCnt = Number(localStorage.getItem('TODO-ITEM-CNT'));
@@ -62,19 +66,26 @@ export default new Vuex.Store({
 	},
 	actions: {
 		// 외부 통신 수행 등
-		getNames() {
-			const url = 'http:/asdf/asdf';
-			axios.get(url).then(response => {
-				console.log('url:' + url);
-			}).catch(error => {
-				console.log(error);
-			});
+		addTodo({ commit }, value) {
+			commit('addTodo', value);
+		},
+		getUserList({ commit }, value) {
+			const url = "https://jsonplaceholder.typicode.com/users";
+			let params = "";
+			axios.get(url, params)
+				.then(res => {
+					console.log(res)
+					commit('setUserList', res.data);
+				})
+				.catch(err => {
+					console.error(err);
+				});
 		}
-
-
 	},
 	getters: {
 		// components 의 computed 라고 생각 하면 됨.
+		userList() {
+			return
+		}
 	}
-
 })
