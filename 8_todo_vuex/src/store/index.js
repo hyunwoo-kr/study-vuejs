@@ -5,7 +5,6 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
-		itemCnt: 1,
 		// 데이터 위치
 		todoItemList: [],
 		users: []
@@ -13,30 +12,27 @@ export default new Vuex.Store({
 	mutations: {
 		// // 데이터를 실제로 바꾸는 곳.
 		addTodo(state, value) {
+			const id = Number(localStorage.getItem('TODO-ITEM-ID')) + 1;
 			let item = new Object();
-			item.id = state.itemCnt;
+			item.id = id;
 			item.todo = value;
 			item.checked = false;
+			item.sort = id;
+			item.edit = false;
 			console.log(item);
 			// Local storage에 저장하기
-			localStorage.setItem("TODO" + state.itemCnt, JSON.stringify(item));
+			localStorage.setItem("TODO" + id, JSON.stringify(item));
 			state.todoItemList.push(item);
-			state.itemCnt += 1;
-			localStorage.setItem('TODO-ITEM-CNT', state.itemCnt);
+			localStorage.setItem('TODO-ITEM-ID', id);
 		},
 		removeTodo(state, { todoId, index }) {
 			localStorage.removeItem("TODO" + todoId);
 			state.todoItemList.splice(index, 1);
-			state.itemCnt -= 1;
-			if (state.itemCnt < 0) {
-				state.itemCnt = 0;
-			}
-			localStorage.setItem('TODO-ITEM-CNT', state.itemCnt);
 		},
 		removeAll(state) {
 			localStorage.clear();
 			state.todoItemList = [];
-			localStorage.setItem('TODO-ITEM-CNT', 1);
+			localStorage.setItem('TODO-ITEM-ID', 0);
 		},
 		setUserList(state, value) {
 			state.users = value;
@@ -48,26 +44,38 @@ export default new Vuex.Store({
 			found.checked = !todoItem.checked;
 			localStorage.setItem("TODO" + todoItem.id, JSON.stringify(found));
 		},
-		init(state) {
-			if (localStorage.getItem('TODO-ITEM-CNT')) {
-				state.itemCnt = Number(localStorage.getItem('TODO-ITEM-CNT'));
+		edit(state, { todoItem, index }) {
+			let found = state.todoItemList.find(x => x.id == todoItem.id);
+			found.edit = !found.edit;
+			if (found.edit) {
+				console.log('할일 수정 하기');
 			} else {
-				state.itemCnt = 1;
+				console.log('할일 수정 완료');
+				localStorage.setItem("TODO" + todoItem.id, JSON.stringify(found));
+			}
+		},
+		init(state) {
+			if (!localStorage.getItem('TODO-ITEM-ID')) {
+				localStorage.setItem('TODO-ITEM-ID', 0);
 			}
 
+			let tmpItemList = [];
 			if (localStorage.length > 0) {
 				for (let i = 0; i < localStorage.length; i++) {
-					if (localStorage.key(i).indexOf('TODO') !== -1 && localStorage.key(i) !== 'TODO-ITEM-CNT') {
-
+					if (localStorage.key(i).indexOf('TODO') !== -1 && localStorage.key(i) !== 'TODO-ITEM-ID') {
 						let keyNm = localStorage.key(i);
 						let data = localStorage.getItem(keyNm);
-						console.log(JSON.parse(data));
-						state.todoItemList.push(JSON.parse(data));
-						if (i > 100) {
-							break;
-						}
+						tmpItemList.push(JSON.parse(data));
 					}
 				}
+
+				const sortValue = tmpItemList.sort((a, b) => {
+					if (a.sort > b.sort) return 1;
+					if (a.sort < b.sort) return -1;
+					return 0;
+				});
+
+				state.todoItemList = sortValue;
 			}
 		}
 	},

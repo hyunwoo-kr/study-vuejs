@@ -1,19 +1,20 @@
 <template>
 	<section>
 		<transition-group name="list" tag="ul">
-			<li
-				v-for="(todoItem, index) in todoItemList"
-				v-bind:key="todoItem.id"
-				class="shadow"
-			>
-				<i v-on:click="completed(todoItem, index)" v-bind:class="[todoItem.checked === false? 'unCheckBtn far fa-square': 'checkBtn fas fa-check-square' ]" aria-hidden="true"></i>
-				{{ todoItem.todo }}
-				<span
-					class="removeBtn"
-					type="button"
-					v-on:click="removeTodo(todoItem.id, index)"
-				>
-					<i class="far fa-trash-alt" aria-hidden="true"></i>
+			<li v-for="(todoItem, index) in todoItemList" v-bind:key="todoItem.id" class="shadow">
+				<i v-on:click="completed(todoItem, index)"
+					v-bind:class="[todoItem.checked === false ? 'unCheckBtn far fa-square' : 'checkBtn fas fa-check-square']"
+					aria-hidden="true">
+				</i>
+				<input type="text"
+					v-bind:class="todoItem.edit === true? 'editText': 'printText'"
+					:readonly="todoItem.edit === false"
+					v-on:keyup.enter="edit(todoItem, index)"
+					v-model="todoItem.todo" />
+
+				<span class="removeBtn" type="button">
+					<i class="editBtn fas fa-pen-square" aria-hidden="true" v-on:click="edit(todoItem, index)"></i>
+					<i class="far fa-trash-alt" aria-hidden="true" v-on:click="removeTodo(todoItem.id, index)"></i>
 				</span>
 			</li>
 		</transition-group>
@@ -30,18 +31,27 @@ export default {
 		},
 		completed(todoItem, index) {
 			this.$store.commit('completed', { todoItem, index });
+		},
+		edit(todoItem, index) {
+			this.$store.commit('edit', { todoItem, index });
 		}
 	},
 	computed: {
-		todoItemList: function() {
+		todoItemList: function () {
 			return this.$store.state.todoItemList;
 			// return [];
 		}
-	}
+	},
+	data() {
+		return {
+			isEdit: false,
+			editTodoItem: {}
+		};
+	},
 };
 </script>
 
-<style>
+<style scoped>
 .list-enter-active,
 .list-leave-active {
 	transition: all 1s;
@@ -88,4 +98,24 @@ li {
 	margin-left: auto;
 	color: #de4343;
 }
+
+.editBtn {
+	line-height: 50px;
+	margin-left: auto;
+	color: #62acde;
+}
+
+input.printText {
+	width: 70%;
+	background-color: #ffffff;
+	border: none;
+}
+
+input.editText {
+	width: 70%;
+	background-color: #ffff80;
+	border: none;
+	cursor: auto;
+}
+
 </style>
