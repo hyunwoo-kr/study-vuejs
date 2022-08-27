@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>관계 없는 컴포넌트 간 통신 - Fail</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>관계 없는 컴포넌트 간 통신 - Fail</title>
 </head>
 
 
@@ -14,56 +14,56 @@
 <img src="./images/event_bus.jpg" alt="" width="400px">
 
 <div id="app">
-    <child-component></child-component>
-    <local-component></local-component>
+	<child-component></child-component>
+	<local-component></local-component>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
 <script>
-    var eventBus = new Vue();
-    Vue.component('child-component', {
-        template: '<div><h2>Global 컴포넌트 <button v-on:click="showLog">show</button> </h2></div>',
-        data() {
-            return {
-                count: 0
-            }
-        },
-        methods: {
-            showLog: function() {
-                this.count++
-                    eventBus.$emit('eventBus1', this.count);
-            }
-        }
-    });
+	var eventBus = new Vue();
+	Vue.component('child-component', {
+		template: '<div><h2>Global 컴포넌트 <button v-on:click="showLog">show</button> </h2></div>',
+		data() {
+			return {
+				count: 0
+			}
+		},
+		methods: {
+			showLog: function () {
+				this.count++
+				eventBus.$emit('eventBus1', this.count);
+			}
+		}
+	});
 
-    var cmp1 = {
-        template: '<div style="border: 1px solid;"><h2> Local 컴포넌트 수신받은 값: {{ receive_val }}</h2></div>',
-        data() {
-            return {
-                receive_val: 0
-            }
-        },
-        created: function() {
-            // 이건 되고...
-            /**
-            eventBus.$on("eventBus1", val => {
-                this.receive_val = val;
-            });
-            */
-            // 이건 console에 로그는 변경 된 값으로 출력되지만, UI가 변경 안 됨
-            eventBus.$on("eventBus1", function(val) {
-                this.receive_val = val;
-                console.log('this.receive_val : ' + this.receive_val);
-            });
+	var cmp1 = {
+		template: '<div style="border: 1px solid;"><h2> Local 컴포넌트 수신받은 값: {{ receive_val }}</h2></div>',
+		data() {
+			return {
+				receive_val: 0
+			}
+		},
+		created: function () {
+			// 이건 되고...
+			/**
+			eventBus.$on("eventBus1", val => {
+					this.receive_val = val;
+			});
+			*/
+			// 이건 console에 로그는 변경 된 값으로 출력되지만, UI가 변경 안 됨
+			eventBus.$on("eventBus1", function (val) {
+				this.receive_val = val;
+				console.log('this.receive_val : ' + this.receive_val);
+			});
 
-        }
-    };
+		}
+	};
 
-    var app = new Vue({
-        el: '#app',
-        components: {
-            'local-component': cmp1
-        }
-    });
+	var app = new Vue({
+		el: '#app',
+		components: {
+			'local-component': cmp1
+		}
+	});
 </script>
 
 </html>

@@ -2,66 +2,66 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>직접 해 보기</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>직접 해 보기</title>
 </head>
 
 <body>
-    <h3>URL 값의 끝을 '/' 에서 '/login' 으로 변경하면 화면이 변경되도록 네임드 뷰 방식을 상용해 코딩하기</h3>
-    <a href="/3_router/example/1_index.html#/">'/' 기본 접속</a> <br>
-    <a href="/3_router/example/1_index.html#/login">'/login' 주소로 이동</a>
-    <div id="app">
-        <router-view name='header'></router-view>
-        <router-view></router-view>
-        <router-view name=footer></router-view>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
-    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
-    <script>
-        var Body = {
-            template: '<div>로그인 전 body</div>'
-        };
-        var Header = {
-            template: '<div>로그인 전 Header</div>'
-        };
-        var Footer = {
-            template: '<div>로그인 전 Footer</div>'
-        };
+	<h3>URL 값의 끝을 '/' 에서 '/login' 으로 변경하면 화면이 변경되도록 네임드 뷰 방식을 상용해 코딩하기</h3>
+	<a href="/3_router/example/1_index.html#/">'/' 기본 접속</a> <br>
+	<a href="/3_router/example/1_index.html#/login">'/login' 주소로 이동</a>
+	<div id="app">
+		<router-view name='header'></router-view>
+		<router-view></router-view>
+		<router-view name=footer></router-view>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+	<script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+	<script>
+		var Body = {
+			template: '<div>로그인 전 body</div>'
+		};
+		var Header = {
+			template: '<div>로그인 전 Header</div>'
+		};
+		var Footer = {
+			template: '<div>로그인 전 Footer</div>'
+		};
 
-        var LoginBody = {
-            template: '<div>로그인 용 body</div>'
-        };
-        var LoginHeader = {
-            template: '<div>로그인 용 Header</div>'
-        };
-        var LoginFooter = {
-            template: '<div>로그인 용 Footer</div>'
-        };
+		var LoginBody = {
+			template: '<div>로그인 용 body</div>'
+		};
+		var LoginHeader = {
+			template: '<div>로그인 용 Header</div>'
+		};
+		var LoginFooter = {
+			template: '<div>로그인 용 Footer</div>'
+		};
 
-        var router = new VueRouter({
-            routes: [{
-                path: '/',
-                components: {
-                    default: Body,
-                    header: Header,
-                    footer: Footer
-                }
-            }, {
-                path: '/login',
-                components: {
-                    default: LoginBody,
-                    header: LoginHeader,
-                    footer: LoginFooter
-                }
-            }]
-        });
+		var router = new VueRouter({
+			routes: [{
+				path: '/',
+				components: {
+					default: Body,
+					header: Header,
+					footer: Footer
+				}
+			}, {
+				path: '/login',
+				components: {
+					default: LoginBody,
+					header: LoginHeader,
+					footer: LoginFooter
+				}
+			}]
+		});
 
-        var app = new Vue({
-            router
-        }).$mount('#app');
-    </script>
+		var app = new Vue({
+			router
+		}).$mount('#app');
+	</script>
 </body>
 
 </html>
