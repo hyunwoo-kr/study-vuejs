@@ -6,7 +6,7 @@
 				v-bind:key="todoItem.id"
 				class="shadow"
 			>
-				<i class="checkBtn fas fa-check" aria-hidden="true"></i>
+				<i v-on:click="completed(todoItem, index)" v-bind:class="[todoItem.checked === false? 'unCheckBtn far fa-square': 'checkBtn fas fa-check-square' ]" aria-hidden="true"></i>
 				{{ todoItem.todo }}
 				<span
 					class="removeBtn"
@@ -27,6 +27,9 @@ export default {
 		removeTodo(todoId, index = 0) {
 			// this.$store.mutations.removeTodo(todoItem, index);
 			this.$store.commit("removeTodo", { todoId, index });
+		},
+		completed(todoItem, index) {
+			this.$store.commit('completed', { todoItem, index });
 		}
 	},
 	computed: {
@@ -66,6 +69,12 @@ li {
 	padding: 0 0.9rem;
 	background: white;
 	border-radius: 20px;
+}
+
+.unCheckBtn {
+	line-height: 50px;
+	color: #000000;
+	margin-right: 5px;
 }
 
 .checkBtn {

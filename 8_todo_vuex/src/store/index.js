@@ -41,6 +41,13 @@ export default new Vuex.Store({
 		setUserList(state, value) {
 			state.users = value;
 		},
+		completed(state, { todoItem, index }) {
+			console.log(index);
+			let found = state.todoItemList.find(x => x.id == todoItem.id);
+			console.log(found);
+			found.checked = !todoItem.checked;
+			localStorage.setItem("TODO" + todoItem.id, JSON.stringify(found));
+		},
 		init(state) {
 			if (localStorage.getItem('TODO-ITEM-CNT')) {
 				state.itemCnt = Number(localStorage.getItem('TODO-ITEM-CNT'));
@@ -84,8 +91,8 @@ export default new Vuex.Store({
 	},
 	getters: {
 		// components 의 computed 라고 생각 하면 됨.
-		userList() {
-			return
+		numberOfComplatedTodo(state) {
+			return state.todoItemList.filter(todoItem => todoItem.checked).length;
 		}
 	}
 })

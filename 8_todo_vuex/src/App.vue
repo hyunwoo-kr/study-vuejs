@@ -1,7 +1,6 @@
 <template>
 	<div id="app">
 		<TodoHeader></TodoHeader>
-		<UserList></UserList>
 		<TodoInput></TodoInput>
 		<TodoList></TodoList>
 		<TodoFooter></TodoFooter>
@@ -14,7 +13,6 @@ import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import TodoFooter from "./components/TodoFooter";
 import UserList from "./components/UserList";
-import store from "./store";
 
 const PREFIX_KEY = "TODO";
 

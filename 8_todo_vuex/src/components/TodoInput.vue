@@ -68,7 +68,6 @@ input:focus {
 .inputBox input {
 	border-style: none;
 	font-size: 0.9rem;
-	width: 70%;
 }
 
 .addContainer {
