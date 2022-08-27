@@ -6,15 +6,15 @@
 					v-bind:class="[todoItem.checked === false ? 'unCheckBtn far fa-square' : 'checkBtn fas fa-check-square']"
 					aria-hidden="true">
 				</i>
-				<input type="text"
-					v-bind:class="todoItem.edit === true? 'editText': 'printText'"
-					:readonly="todoItem.edit === false"
-					v-on:keyup.enter="edit(todoItem, index)"
-					v-model="todoItem.todo" />
-
-				<span class="removeBtn" type="button">
+				<input type="text" v-bind:class="todoItem.edit === true ? 'editText' : 'printText'"
+					:readonly="todoItem.edit === false" v-on:keyup.enter="edit(todoItem, index)"
+					v-on:click="edit(todoItem, index)" v-model="todoItem.todo" />
+				<span class="completedTime" v-if="todoItem.checked === true">
+					{{ todoItem.completedTime }}
+				</span>
+				<span class="iconGroup" type="button">
 					<i class="editBtn fas fa-pen-square" aria-hidden="true" v-on:click="edit(todoItem, index)"></i>
-					<i class="far fa-trash-alt" aria-hidden="true" v-on:click="removeTodo(todoItem.id, index)"></i>
+					<i class="removeBtn far fa-trash-alt" aria-hidden="true" v-on:click="removeTodo(todoItem.id, index)"></i>
 				</span>
 			</li>
 		</transition-group>
@@ -30,11 +30,28 @@ export default {
 			this.$store.commit("removeTodo", { todoId, index });
 		},
 		completed(todoItem, index) {
+			// console.log('들어 오니?' + this.$currentDateTime());
 			this.$store.commit('completed', { todoItem, index });
 		},
 		edit(todoItem, index) {
 			this.$store.commit('edit', { todoItem, index });
-		}
+		},
+		// compltedTime() {
+		// 	let date = new Date();
+		// 	let year = date.getFullYear();
+		// 	let month = (date.getMonth() + 1).padStart(2, '0');
+		// 	let day = date.getDate().padStart(2, '0');
+		// 	let hour = date.getHours().padStart(2, '0');
+		// 	let minute = date.getMinutes().padStart(2, '0');
+		// 	let second = date.getSeconds().padStart(2, '0');
+		// 	if (month < 10) {
+		// 		month = '0' + month;
+		// 	}
+		// 	if (day < 10) {
+		// 		day = '0' + day;
+		// 	}
+		// 	return year + '-' + 'month' - 'day' + ' ' + hour + ':' + minute + ':' + second;
+		// },
 	},
 	computed: {
 		todoItemList: function () {
@@ -93,10 +110,27 @@ li {
 	margin-right: 5px;
 }
 
-.removeBtn {
+input.printText {
+	line-height: 50px;
+	width: 70%;
+	background-color: #ffffff;
+	border: none;
+}
+
+input.editText {
+	line-height: 48px;
+	width: 70%;
+	background-color: #ffff80;
+}
+
+.completedTime {
+	min-width: 100px;
+	margin-left: 10px;
+}
+
+.iconGroup {
 	line-height: 50px;
 	margin-left: auto;
-	color: #de4343;
 }
 
 .editBtn {
@@ -105,17 +139,9 @@ li {
 	color: #62acde;
 }
 
-input.printText {
-	width: 70%;
-	background-color: #ffffff;
-	border: none;
+.removeBtn {
+	line-height: 50px;
+	margin-left: auto;
+	color: #de4343;
 }
-
-input.editText {
-	width: 70%;
-	background-color: #ffff80;
-	border: none;
-	cursor: auto;
-}
-
 </style>

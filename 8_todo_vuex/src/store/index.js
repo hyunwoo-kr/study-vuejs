@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex);
 
+let common = new Vue();
+
 export default new Vuex.Store({
 	state: {
 		// 데이터 위치
@@ -19,6 +21,7 @@ export default new Vuex.Store({
 			item.checked = false;
 			item.sort = id;
 			item.edit = false;
+			item.completedTime = '';
 			console.log(item);
 			// Local storage에 저장하기
 			localStorage.setItem("TODO" + id, JSON.stringify(item));
@@ -38,10 +41,16 @@ export default new Vuex.Store({
 			state.users = value;
 		},
 		completed(state, { todoItem, index }) {
-			console.log(index);
 			let found = state.todoItemList.find(x => x.id == todoItem.id);
-			console.log(found);
 			found.checked = !todoItem.checked;
+
+			if (found.checked === true) {
+				// 완료시, 완료일시를 저장한다
+				found.completedTime = common.$currentDateTime();
+			} else {
+				found.completedTime = '';
+			}
+
 			localStorage.setItem("TODO" + todoItem.id, JSON.stringify(found));
 		},
 		edit(state, { todoItem, index }) {
@@ -101,6 +110,6 @@ export default new Vuex.Store({
 		// components 의 computed 라고 생각 하면 됨.
 		numberOfComplatedTodo(state) {
 			return state.todoItemList.filter(todoItem => todoItem.checked).length;
-		}
+		},
 	}
 })
