@@ -9,10 +9,11 @@
 				<input type="text" v-bind:class="todoItem.edit === true ? 'editText' : 'printText'"
 					:readonly="todoItem.edit === false" v-on:keyup.enter="edit(todoItem, index)"
 					v-on:click="edit(todoItem, index)" v-model="todoItem.todo" />
-				<span class="completedTime" v-if="todoItem.checked === true">
-					{{ todoItem.completedTime }}
-				</span>
+
 				<span class="iconGroup" type="button">
+					<span class="completedTime" v-if="todoItem.checked === true">
+						{{ todoItem.completedTime }}
+					</span>
 					<i class="editBtn fas fa-pen-square" aria-hidden="true" v-on:click="edit(todoItem, index)"></i>
 					<i class="removeBtn far fa-trash-alt" aria-hidden="true" v-on:click="removeTodo(todoItem.id, index)"></i>
 				</span>
@@ -112,20 +113,21 @@ li {
 
 input.printText {
 	line-height: 50px;
-	width: 70%;
+	width: 60%;
 	background-color: #ffffff;
 	border: none;
 }
 
 input.editText {
 	line-height: 48px;
-	width: 70%;
+	width: 60%;
 	background-color: #ffff80;
 }
 
 .completedTime {
 	min-width: 100px;
-	margin-left: 10px;
+	line-height: 50px;
+	margin-right: auto;
 }
 
 .iconGroup {
